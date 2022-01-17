@@ -5,12 +5,15 @@ class TodoContainer extends StatelessWidget {
   final String title;
   final String desc;
   final bool isDone;
+  final Function onPress;
   const TodoContainer(
       {Key? key,
       required this.title,
       required this.desc,
       required this.isDone,
-      required this.id})
+      required this.id,
+      required this.onPress,
+      })
       : super(key: key);
 
   @override
@@ -21,11 +24,10 @@ class TodoContainer extends StatelessWidget {
         width: double.infinity,
         height: 120,
         decoration: const BoxDecoration(
-            color: Colors.pink,
+            color: Colors.purple,
             borderRadius: BorderRadius.all(
               Radius.circular(4),
-            )
-        ),
+            )),
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
@@ -34,7 +36,7 @@ class TodoContainer extends StatelessWidget {
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
                       title,
@@ -42,26 +44,34 @@ class TodoContainer extends StatelessWidget {
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
                         fontSize: 18,
-                      ),),
-                      const IconButton(
-                        onPressed: null, 
-                        icon: Icon(Icons.delete),
+                      ),
+                    ),
+                    IconButton(
+                      onPressed: () => onPress(),
+                      icon: Icon(
+                        Icons.delete,
                         color: Colors.white,
-                        iconSize: 32,),
+                        size: 32,
+                      ),
+                    )
                   ],
                 ),
               ),
-                SizedBox(height: 6,),
-                SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Text(
+              SizedBox(
+                height: 6,
+              ),
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Text(
                   desc,
                   style: const TextStyle(
                     color: Colors.white,
                     fontSize: 18,
-                  ),),
+                  ),
                 ),
-            ],),
+              ),
+            ],
+          ),
         ),
       ),
     );

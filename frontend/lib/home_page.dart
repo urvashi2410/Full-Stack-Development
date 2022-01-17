@@ -6,7 +6,6 @@ import 'Constants/api.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'Widgets/app_bar.dart';
-import 'package:pie_chart/pie_chart.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key? key}) : super(key: key);
@@ -44,6 +43,18 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
+  void delete_todo(String id) async {
+    try {
+      http.Response response = await http.delete(Uri.parse(api + "/" + id));
+      fetchData();
+      setState(() {
+        
+      });
+    } catch (e) {
+      print(e);
+    }
+  }
+
   @override
   void initState() {
     fetchData();
@@ -55,22 +66,30 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
         backgroundColor: Color(0xFF001133),
         appBar: customAppBar(),
-        body: Column(
-          children: [
-            PieChart(
-              dataMap: {
-                'Complete' : complete.toDouble(),
-                'Incomplete' : (myTodos.length - complete).toDouble()
-              }),
-             isLoading
-            ? CircularProgressIndicator()
-            : ListView(
-                children: myTodos.map((e) {
-                  return TodoContainer(
-                      title: e.title, desc: e.desc, isDone: e.isDone, id: e.id);
-                }).toList(),
-              )
-          ],
-          ));
+        body: SingleChildScrollView(
+          scrollDirection: Axis.vertical,
+          child: Column(
+            children: [
+              PieChart(
+                dataMap: {
+                  'Complete': complete.toDouble(),
+                  'Incomplete': (myTodos.length - complete).toDouble()
+                },
+              ),
+              isLoading
+                  ? CircularProgressIndicator()
+                  : Column(
+                      children: myTodos.map((e) {
+                        return TodoContainer(
+                          onPress: () => delete_todo(e.id.toString()),
+                            title: e.title,
+                            desc: e.desc,
+                            isDone: e.isDone,
+                            id: e.id);
+                      }).toList(),
+                    )
+            ],
+          ),
+        ));
   }
 }
