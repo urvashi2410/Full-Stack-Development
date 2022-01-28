@@ -1,6 +1,4 @@
-from django.db.models.query import QuerySet
-from rest_framework import generics
-from rest_framework.serializers import Serializer
+from rest_framework import generics, serializers
 from .models import Todo
 from .serializers import TodoSerializer
 

@@ -33,9 +33,7 @@ class TodoContainer extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
+              Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
@@ -56,7 +54,6 @@ class TodoContainer extends StatelessWidget {
                     )
                   ],
                 ),
-              ),
               SizedBox(
                 height: 6,
               ),
