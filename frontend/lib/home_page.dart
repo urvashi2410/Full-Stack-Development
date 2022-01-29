@@ -6,6 +6,7 @@ import 'Constants/api.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'Widgets/app_bar.dart';
+import 'Constants/colors.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key? key}) : super(key: key);
@@ -145,7 +146,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFF001133),
+      backgroundColor: bg,
       appBar: customAppBar(),
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
